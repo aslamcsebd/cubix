@@ -61,7 +61,7 @@ $(document).ready(function(){
         if(emailErr == false && userErr == false && passErr == false){
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
-    
+
             //Add Class Active
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
     
@@ -117,11 +117,22 @@ $(document).ready(function(){
 		setProgressBar(--current);
 	});
 
+    if (window.location.hash === '#success') {
+        $("fieldset").hide();
+        $("#fieldset").show();
+        $("#progressbar li").addClass("active");
+        setProgressBar(4);
+        var uri = window.location.toString();
+         if (uri.indexOf("#") > 0) {
+            var clean_uri = uri.substring(0, uri.indexOf("#"));
+            window.history.replaceState({}, document.title, clean_uri);
+         }
+    }
+
 	function setProgressBar(curStep){
 		var percent = parseFloat(100 / steps) * curStep;
 		percent = percent.toFixed();
-		$(".progress-bar")
-		.css("width",percent+"%")
+		$(".progress-bar").css("width",percent+"%")
 	}
 
 	$(".submit").click(function(){
